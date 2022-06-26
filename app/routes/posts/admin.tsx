@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, Link } from "@remix-run/react";
+import { useLoaderData, Link, Outlet } from "@remix-run/react";
 
 import { getPosts } from "~/models/post.server";
 
@@ -19,18 +19,18 @@ export default function Posts() {
   return (
     <main>
       <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
-        Posts
+        Blog Admin
       </h1>
       <div>
-        <Link to="admin" className="text-center text-red-600 underline ">
+        <Link to="" className="text-center text-red-600 underline ">
           Admin
         </Link>
       </div>
       <ul>
         {posts.map((post) => (
-          <li key={`post/ + ${post.slug}`}>
+          <li key={post.slug}>
             <Link
-              to={post.slug}
+              to={`/posts/${post.slug}`}
               className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
             >
               {post.title}
@@ -38,6 +38,7 @@ export default function Posts() {
           </li>
         ))}
       </ul>
+      <Outlet />
     </main>
   );
 }
