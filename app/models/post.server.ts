@@ -14,3 +14,11 @@ export async function getPost(id: string) {
 export async function createPost(post: Post) {
   return prisma.post.create({ data: post });
 }
+
+export async function deletePost(id: string) {
+  return prisma.post.delete({ where: { slug: id } });
+}
+
+export async function updatePost(post: Post) {
+  return prisma.post.update({ where: { slug: post.slug }, data: post });
+}
