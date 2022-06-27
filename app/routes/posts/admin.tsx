@@ -19,7 +19,7 @@ export default function Posts() {
   return (
     <main>
       <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
-        Blog Admin
+        Edit Blog
       </h1>
       <div>
         <Link to="" className="text-center text-red-600 underline ">
@@ -30,7 +30,7 @@ export default function Posts() {
         {posts.map((post) => (
           <li key={post.slug}>
             <Link
-              to={`/posts/${post.slug}`}
+              to={post.slug}
               className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
             >
               {post.title}
