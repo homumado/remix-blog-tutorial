@@ -34,20 +34,31 @@ type ActionData =
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
-  //@ts-ignore
-  const form: Post = Object.fromEntries(formData.entries());
+  //switch between update and delete
+  switch (formData.get("action")) {
+    case "delete":
+      await deletePost(formData.get("slug"));
+      break;
+    case "update":
+      const title = formData.get("title");
+      const slug = formData.get("slug");
+      const markdown = formData.get("markdown");
 
-  const errors: ActionData = {
-    title: form.title ? null : "Title is required",
-    slug: form.slug ? null : "Slug is required",
-    markdown: form.markdown ? null : "Markdown is required",
-  };
-  const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
-  if (hasErrors) {
-    return json<ActionData>(errors);
+      const errors: ActionData = {
+        title: title ? null : "Title is required",
+        slug: slug ? null : "Slug is required",
+        markdown: markdown ? null : "Markdown is required",
+      };
+      const hasErrors = Object.values(errors).some(
+        (errorMessage) => errorMessage
+      );
+      if (hasErrors) {
+        return json<ActionData>(errors);
+      }
+
+      await updatePost({ title, slug, markdown });
+      break;
   }
-
-  await updatePost(form);
 
   return redirect("/posts/admin");
 };
@@ -110,18 +121,20 @@ export default function NewPost() {
           type="submit"
           className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400 disabled:bg-blue-300"
           disabled={isCreating}
+          name="action"
+          value="update"
         >
           {isCreating ? "Saving..." : "Save Post"}
         </button>
       </p>
-      {/*deletebutton here
-       */}
       <p className="text-right">
         <button
-          type="button"
+          type="submit"
           className="rounded bg-red-500 py-2 px-4 text-white hover:bg-red-600 focus:bg-red-400 disabled:bg-red-300"
           // onClick={() => deleteThis(post.slug)}
           disabled={isCreating}
+          name="action"
+          value="delete"
         >
           Delete Post
         </button>
