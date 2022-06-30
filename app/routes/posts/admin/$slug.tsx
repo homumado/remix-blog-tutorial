@@ -10,7 +10,6 @@ import { deletePost, getPost, updatePost } from "~/models/post.server";
 import invariant from "tiny-invariant";
 
 import type { LoaderFunction, ActionFunction } from "@remix-run/node";
-import type { Post } from "~/models/post.server";
 
 const inputClassName = `w-full rounded border border-gray-500 px-2 py-1 text-lg`;
 
