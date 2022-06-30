@@ -36,7 +36,7 @@ export default function Index() {
                     View Notes for {user.email}
                   </Link>
                 ) : (
-                  <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-3 sm:gap-5 sm:space-y-0">
+                  <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-5 sm:gap-5 sm:space-y-0">
                     <Link
                       to="/join"
                       className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
@@ -54,6 +54,13 @@ export default function Index() {
                       className="flex items-center justify-center rounded-md bg-green-500 px-4 py-3 font-medium text-white hover:bg-yellow-600  "
                     >
                       Blog Posts
+                    </Link>
+
+                    <Link
+                      to="/newsletter"
+                      className="flex items-center justify-center rounded-md bg-green-500 px-4 py-3 font-medium text-white hover:bg-yellow-600  "
+                    >
+                      Newsletter
                     </Link>
                   </div>
                 )}
