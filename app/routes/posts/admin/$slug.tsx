@@ -40,9 +40,9 @@ export const action: ActionFunction = async ({ request }) => {
       await deletePost(formData.get("slug"));
       break;
     case "update":
-      const title = formData.get("title");
-      const slug = formData.get("slug");
-      const markdown = formData.get("markdown");
+      let title = formData.get("title");
+      let slug = formData.get("slug");
+      let markdown = formData.get("markdown");
 
       const errors: ActionData = {
         title: title ? null : "Title is required",
