@@ -5,7 +5,6 @@ import { getEmails, addEmail } from "~/models/newsletter.server";
 
 export const loader = async () => {
   const emails = await getEmails();
-  console.log(emails);
 
   return json<{ emails: string[] }>({
     emails: emails.map((email) => email.email),
@@ -14,8 +13,6 @@ export const loader = async () => {
 
 export default function Posts() {
   const { emails } = useLoaderData<{ emails: string[] }>();
-
-  console.log(emails);
 
   //a email submission form for newsletters
   return (
