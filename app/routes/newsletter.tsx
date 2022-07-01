@@ -3,7 +3,9 @@ import { useLoaderData, Link, Form } from "@remix-run/react";
 
 import { getEmails, addEmail } from "~/models/newsletter.server";
 
-export const loader = async () => {
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+
+export const loader: LoaderFunction = async () => {
   const emails = await getEmails();
 
   return json<{ emails: string[] }>({
@@ -43,10 +45,13 @@ export default function Posts() {
   );
 }
 
-export const action = async ({ request }) => {
+export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const email = formData.get("email");
-  console.log(email);
+
+  if (!email) {
+    return redirect("/newsletter");
+  }
 
   await addEmail(email);
   return redirect("newsletter");
